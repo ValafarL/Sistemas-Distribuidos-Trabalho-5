@@ -1,0 +1,111 @@
+// Arquivo: viagem.proto
+
+syntax = "proto3";
+
+package Viagem;
+
+service Agencia {
+rpc pacote_viagem (PacotePedido) returns (stream PacoteResposta);
+}
+
+service CompanhiaAerea {
+rpc reserva_passagem (PassagemPedido) returns (PassagemResposta);
+rpc rollback_reserva (RollbackPassagemPedido) returns (RollbackPassagemResposta);
+
+}
+
+service Hotel {
+rpc reserva_hotel (HotelPedido) returns (HotelResposta);
+rpc rollback_hotel (RollbackHotelPedido) returns (RollbackHotelResposta);
+}
+
+service Carro {
+rpc reserva_carro (CarroPedido) returns (CarroResposta);
+rpc rollback_carro (RollbackCarroPedido) returns (RollbackCarroResposta);
+
+}
+
+// AGENCIA
+message  PacotePedido{
+string tipo_viagem = 1;
+string data_ida = 2;
+string data_volta = 3;
+string origem = 4;
+string destino  = 5;
+int32 pessoas = 6;
+}
+message PacoteResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
+
+// COMPANHIA AEREA
+message  PassagemPedido{
+string tipo_viagem = 1;
+string data_ida = 2;
+string data_volta = 3;
+string origem = 4;
+string destino  = 5;
+int32 pessoas = 6;
+int32 id = 7;
+}
+message PassagemResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
+
+message  RollbackPassagemPedido{
+int32 id = 1;
+}
+message RollbackPassagemResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
+
+// REDE HOTELEIRA
+message  HotelPedido{
+string tipo_viagem = 1;
+string data_ida = 2;
+string data_volta = 3;
+string origem = 4;
+string destino  = 5;
+int32 pessoas = 6;
+int32 id = 7;
+}
+message HotelResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
+
+message  RollbackHotelPedido{
+int32 id = 1;
+}
+message RollbackHotelResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
+
+
+// LOCADORA DE CARRO
+message  CarroPedido{
+string tipo_viagem = 1;
+string data_ida = 2;
+string data_volta = 3;
+string origem = 4;
+string destino  = 5;
+int32 pessoas = 6;
+int32 id = 7;
+}
+message CarroResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
+
+message  RollbackCarroPedido{
+int32 id = 1;
+}
+
+message RollbackCarroResposta {
+bool sucesso = 1;
+string mensagem = 2;
+}
